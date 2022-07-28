@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h2>Grafikai išsiųsti:</h2>
+    <ul>
+        {% for element in names %}
+        <li><p> {{ element }}</p></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

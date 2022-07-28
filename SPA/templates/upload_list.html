@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Upload List</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Target Month</th>
+            <th>Target Year</th>
+            <th>Excel File Name</th>
+        </tr>
+    </thead>        
+    <tbody>
+        {% for element in upload %}
+        <tr>
+            <td>
+                {{ element.target_year }}
+            </td>
+            <td>
+                {{ element.target_month }}
+            </td>
+            <td><a href="{{ element.excel.url }}">{{ element.excel }}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
