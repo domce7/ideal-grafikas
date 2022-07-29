@@ -17,13 +17,14 @@ def upload(request):
     form = Upload()
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
-        print(request.POST)
         
         if form.is_valid():
             form.save()
             
             form_data = Upload.objects.latest('id')
-            path = os.path.join(os.path.dirname(os.path.dirname(__file__))) + form_data.excel.url
+            print( "#####" + form_data.excel.name)
+            path = os.path.join(os.path.dirname(os.path.dirname(__file__))) + "/media/" + form_data.excel.name
+            print( "#####" + path)
 
             Worker.initiate_from_excel(path)
             ics_file_location = Worker.do_ics(form_data.target_year, form_data.target_month)

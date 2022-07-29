@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 from datetime import datetime, tzinfo
 import unicodedata
 import pandas as pd
@@ -12,12 +13,9 @@ class Worker():
     all = []
     who_is_working = [''] * 32
 
-    def __init__(self, name: str, pareigos: str, darbo_dienu_sk: int, darbo_valandu_sk: int, netvarkytas_darbo_grafikas):
+    def __init__(self, name: str, netvarkytas_darbo_grafikas):
 
         self.name = name
-        self.pareigos = pareigos
-        self.darbo_dienu_sk = darbo_dienu_sk
-        self.darbo_valandu_sk = darbo_valandu_sk
         self.netvarkytas_darbo_grafikas = netvarkytas_darbo_grafikas
         self.darbo_dienos = [self.name if has_number(item) else '-' for item in self.netvarkytas_darbo_grafikas]
 
@@ -34,21 +32,20 @@ class Worker():
     @classmethod
     def initiate_from_excel(cls, path):
         """ """
+        print(path)
+
         list = remove_garbage(pd.read_excel(path))
         os.remove(path)
 
         for item in list:
             Worker(
                 name=item[0],
-                pareigos=item[1],
-                darbo_dienu_sk=item[2],
-                darbo_valandu_sk=item[3],
-                netvarkytas_darbo_grafikas=item[6:],
+                netvarkytas_darbo_grafikas=item[7:],
             )
 
     def __repr__(self):
         return(
-            f"Worker({self.name}, {self.pareigos},  {self.darbo_dienu_sk}, {self.darbo_valandu_sk}, {self.netvarkytas_darbo_grafikas})"
+            f"Worker({self.name}, {self.netvarkytas_darbo_grafikas})"
         )
 
     @classmethod

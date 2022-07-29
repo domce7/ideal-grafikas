@@ -87,6 +87,9 @@ DATABASES = {
         'USER': env('DB_USERNAME'),
         'PASSWORD': env('DB_PASSWORD'),
         'HOST': env('DB_HOST'),
+        'OPTIONS': {
+            'charset': 'utf8mb4'
+        }
     }
 }
 
