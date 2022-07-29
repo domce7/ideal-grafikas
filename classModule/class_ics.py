@@ -6,7 +6,7 @@ import pathlib
 import os
 import re
 
-PAREIGOS_KURIU_KINTANTIS_DARBO_LAIKAS = ['apple specialistas', 'apple profesionalas'] # prideti mot. g.
+PAREIGOS_KURIU_KINTANTIS_DARBO_LAIKAS = ['apple specialistas', 'apple profesionalas', 'apple specialiste', 'apple profesionale']
 
 class Worker():
     all = []
@@ -106,7 +106,7 @@ def remove_garbage(dataframe):
     for x in temporyList:
         if (re.match("[a-zA-Z]+\s[a-zA-Z]+", simplify(str(x[0]))) 
         and ('Darbo dienos' not in str(x[0])) 
-        and x[1].lower() in PAREIGOS_KURIU_KINTANTIS_DARBO_LAIKAS):
+        and simplify(x[1].lower()) in PAREIGOS_KURIU_KINTANTIS_DARBO_LAIKAS):
             completeList.append(x)
 
     return completeList
