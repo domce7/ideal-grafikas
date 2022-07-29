@@ -35,6 +35,7 @@ class Worker():
     def initiate_from_excel(cls, path):
         """ """
         list = remove_garbage(pd.read_excel(path))
+        os.remove(path)
 
         for item in list:
             Worker(
@@ -42,9 +43,8 @@ class Worker():
                 pareigos=item[1],
                 darbo_dienu_sk=item[2],
                 darbo_valandu_sk=item[3],
-                netvarkytas_darbo_grafikas=item[7:],
+                netvarkytas_darbo_grafikas=item[6:],
             )
-        print(Worker.all)
 
     def __repr__(self):
         return(

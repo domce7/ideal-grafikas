@@ -13,9 +13,6 @@ from .models import Upload
 from .forms import UploadForm
 from .models import Upload
 
-class homepage(TemplateView):
-    template_name = 'home.html'
-
 def upload(request):
     form = Upload()
     if request.method == 'POST':
