@@ -1,1 +1,0 @@
-web: gunicorn SPA.config.wsgi
