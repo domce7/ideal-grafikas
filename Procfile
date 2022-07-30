@@ -1,1 +1,1 @@
-web: gunicorn grafikas.wsgi
+web: gunicorn config.wsgi
