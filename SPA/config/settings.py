@@ -1,6 +1,6 @@
 import environ
 import os
-import django_heroku
+import django_on_heroku
 
 env = environ.Env()
 environ.Env.read_env()
@@ -150,4 +150,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
-django_heroku.settings(locals())
+django_on_heroku.settings(locals())
