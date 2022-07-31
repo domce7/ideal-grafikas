@@ -1,4 +1,4 @@
-html,body {
+/* html,body {
     margin:0;
     padding: 25px 50px;
     box-sizing: border-box;
@@ -24,9 +24,9 @@ body {
 
 
 .content-info {
-    background: #1D976C;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom left right, #93F9B9, #1D976C);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom left, #93F9B9, #1D976C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #1D976C;
+    background: -webkit-linear-gradient(to bottom left right, #93F9B9, #1D976C);
+    background: linear-gradient(to bottom left, #93F9B9, #1D976C);
     
     color: white;
     width: 60%;
@@ -40,10 +40,6 @@ body {
     margin-left: 20px;
     margin-top: 20%;
     justify-content: center;
-}
-
-.select-year {
-
 }
 
 .heading {
@@ -91,4 +87,4 @@ body {
     transform: translateY(1px);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
-
+ */

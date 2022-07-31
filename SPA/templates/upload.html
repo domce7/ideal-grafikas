@@ -1,26 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-
-    <div class="column content-info">
-        <h1 class="heading">
-            Sukurti  <br> Darbo <br> Grafiką
-        </h1>
-    </div>
-
-    <div class="column content-form">
-        <form class="form" method="post" enctype="multipart/form-data">
+<!-- <div class="h-100 p-5 text-bg-dark rounded-3"> -->
+ 
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-4 fw-bold lh-1 mb-3">Sukurti darbo grafiką</h1>
+        <p class="col-lg-10 fs-4">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+        </div>
+        <div class="col-md-10 mx-auto col-lg-5">
+        <form class="p-4 p-md-5 border rounded-3 bg-light" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            
-            <p class="select-name">Metai:</p>
-            <select class="select-year" name="target_year" id="select-year">
+            <label class="form-label mb-0">Metai</label>
+            <select class="form-select select-year" name="target_year" id="select-year">
                 <option id="opt-year-1"></option>
                 <option id="opt-year-2"></option>
             </select>
 
-            <p class="select-name">Menuo:</p>
-            <select name="target_month" id="select-month">
+            <label class="form-label mt-2 mb-0">Mėnuo</label>
+            <select class="form-select" name="target_month" id="select-month">
                 <option value="1">Sausis</option>
                 <option value="2">Vasaris</option>
                 <option value="3">Kovas</option>
@@ -34,13 +33,16 @@
                 <option value="11">Lapkritis</option>
                 <option value="12">Gruodis</option>
             </select>
-            <br>
-            <input class="btn-file" type="file" name="excel" />
-            <br>
-            <button class="btn-upload" onclick="uploadFiles()" type="submit">Daryti grafiką</button>
 
+            <div class="mb-3">
+                <label class="form-label  mt-3 mb-0">Pasirinkti excel failą</label>
+                <input class="form-control" type="file" id="formFile" name="excel">
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Daryti grafiką</button>
         </form>
+        </div>
     </div>
-
 </div>
+
 {% endblock %}

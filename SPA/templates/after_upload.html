@@ -2,11 +2,24 @@
 
 
 {% block content %}
-    <h2>Grafikai išsiųsti:</h2>
-    <ul>
-        {% for element in names %}
-        <li><p> {{ element }}</p></li>
-        {% endfor %}
-    </ul>
-
+    <div class="modal modal-tour position-static d-block bg-gradient py-5" tabindex="-1" role="dialog" id="modalTour">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content rounded-4 shadow">
+            <div class="modal-body p-5">
+              <h2 class="fw-bold mb-0">Grafikai išsiųsti:</h2>
+      
+              <ul class="d-grid gap-4 my-5 list-unstyled">
+                {% for element in names %}
+                <li class="d-flex gap-4">
+                  <svg class="bi text-muted flex-shrink-0" width="48" height="48"><use xlink:href="#grid-fill"/></svg>
+                  <div>
+                    <h5 class="mb-0">{{ element }}</h5>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 {% endblock %}
