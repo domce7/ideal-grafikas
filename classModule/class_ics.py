@@ -6,6 +6,7 @@ from icalendar import Calendar, Event
 import pathlib
 import os
 import re
+from pathlib import Path
 
 PAREIGOS_KURIU_KINTANTIS_DARBO_LAIKAS = ['apple specialistas', 'apple profesionalas', 'apple specialiste', 'apple profesionale']
 
@@ -30,19 +31,21 @@ class Worker():
         Worker.all.clear()
 
     @classmethod
-    def initiate_from_excel(cls, path):
+    def initiate_from_excel(cls, path, year, month):
         """ """
         # ---------------------------
         print(path)
         # ---------------------------
 
+        temp = monthrange(year, month)
+        numberOfDaysInMonth = temp[1]
+
         list = remove_garbage(pd.read_excel(path))
         os.remove(path)
-
         for item in list:
             Worker(
                 name=item[0],
-                netvarkytas_darbo_grafikas=item[6:],
+                netvarkytas_darbo_grafikas=item[-numberOfDaysInMonth:],
             )
 
     def __repr__(self):
@@ -56,8 +59,6 @@ class Worker():
 
     @classmethod
     def do_ics(self, year, month):
-        temp = monthrange(year, month)
-        numberOfDaysInMonth = temp[1]
 
         year = int(year)
         month = int(month)
@@ -67,7 +68,6 @@ class Worker():
         for worker in Worker.all:
             full_schedule = Calendar()
 
-            worker.netvarkytas_darbo_grafikas = worker.netvarkytas_darbo_grafikas[-numberOfDaysInMonth:]
             # when adding to icalendar, yyyy/mm/dd | dd is date_day_counter
             for date_day_counter, working_day in enumerate(worker.netvarkytas_darbo_grafikas):
                 # all days when you have to go to work will include a digit. if there are no digits you have a day off
@@ -176,3 +176,10 @@ def clean_array(array):
     array = ([s.strip() for s in array])
     array = ([s.strip(',') for s in array])
     return array
+
+def createMailAddress(string: str) -> str:
+    your_path = Path(string)
+    name = simplify(your_path.stem)
+
+    return(name.lower().replace(" ", ".") +'@ideal.lt')
+    
