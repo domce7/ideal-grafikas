@@ -1,6 +1,7 @@
 from datetime import datetime, tzinfo
 import unicodedata
 import pandas as pd
+from calendar import monthrange
 from icalendar import Calendar, Event
 import pathlib
 import os
@@ -31,7 +32,9 @@ class Worker():
     @classmethod
     def initiate_from_excel(cls, path):
         """ """
+        # ---------------------------
         print(path)
+        # ---------------------------
 
         list = remove_garbage(pd.read_excel(path))
         os.remove(path)
@@ -39,7 +42,7 @@ class Worker():
         for item in list:
             Worker(
                 name=item[0],
-                netvarkytas_darbo_grafikas=item[7:],
+                netvarkytas_darbo_grafikas=item[6:],
             )
 
     def __repr__(self):
@@ -53,12 +56,18 @@ class Worker():
 
     @classmethod
     def do_ics(self, year, month):
+        temp = monthrange(year, month)
+        numberOfDaysInMonth = temp[1]
+
         year = int(year)
         month = int(month)
         paths = []
+
         # Iterate with every worker in the list
         for worker in Worker.all:
             full_schedule = Calendar()
+
+            worker.netvarkytas_darbo_grafikas = worker.netvarkytas_darbo_grafikas[-numberOfDaysInMonth:]
             # when adding to icalendar, yyyy/mm/dd | dd is date_day_counter
             for date_day_counter, working_day in enumerate(worker.netvarkytas_darbo_grafikas):
                 # all days when you have to go to work will include a digit. if there are no digits you have a day off
