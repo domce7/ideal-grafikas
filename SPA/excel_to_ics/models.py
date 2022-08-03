@@ -4,7 +4,7 @@ from django.db import models
 class Upload(models.Model):
     target_year = models.IntegerField()
     target_month = models.IntegerField()
-    excel = models.FileField(upload_to='excel_files/', validators=[FileExtensionValidator(allowed_extensions=["xlsx"], message="Ar keliamas failas yra \".xlsx\"?")])
+    excel = models.FileField(upload_to='excel_files/', validators=[FileExtensionValidator(allowed_extensions=["pdf"], message="Ar keliamas failas yra \".pdf\"?")])
 
 
     @property

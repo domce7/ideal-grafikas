@@ -24,8 +24,7 @@ def upload(request):
             form_data = Upload.objects.latest('id')
             path = os.path.join(os.path.dirname(os.path.dirname(__file__))) + "/media/" + form_data.excel.name
 
-            Worker.initiate_from_excel(path, form_data.target_year, form_data.target_month)
-            ics_file_location = Worker.do_ics(form_data.target_year, form_data.target_month)
+            ics_file_location = Worker.magicWrapper(path, form_data.target_year, form_data.target_month)
             name_list = Worker.name_list()
             Worker.clean_list()
 
@@ -53,8 +52,8 @@ def after_upload(request):
 
     # need to create a function which creates an email addres from the path!!!
     for file_path in ics_file_location:
-        
-        msg = EmailMessage(f'Darbo grafikas {year}-{month}', '', 'schedulify@domka.lt', [createMailAddress(file_path)])
+        # ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------  createMailAddress(file_path)
+        msg = EmailMessage(f'Darbo grafikas {year}-{month}', '', 'schedulify@domka.lt', ['domantas.karpinskas@ideal.lt'])
         msg.content_subtype = "html"  
         msg.attach_file(file_path)
         msg.send()
