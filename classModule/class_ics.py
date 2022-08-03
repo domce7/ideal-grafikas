@@ -86,7 +86,7 @@ def removeWhiteSpaceAndNone(array: list) -> list:
         # ---------- If first value of the row is None or '', we ignore it.
         if sublist[0] is not None and sublist[0] != '':
             # ---------- Only add values to temp array if they are not None.
-            tempArray = [x for x in sublist if x]
+            tempArray =  [x for x in sublist if x]
 
             cleanedArray.append(tempArray)
     return cleanedArray
@@ -115,6 +115,10 @@ def arrayCleaningWrapper(array: list) -> list:
 
 class Worker():
     all = []
+    completionMessage = ''
+    # ------------ [ [name, email, completionMessage, path], ... ]
+    displayInformationArray = []
+
     whoWorksThatDay = [''] * 32
 
     targetYear = None
@@ -142,6 +146,7 @@ class Worker():
     @ classmethod
     def clean_list(self):
         Worker.all.clear()
+        Worker.displayInformationArray.clear()
 
     @ classmethod
     def magicWrapper(cls, path, year, month):
@@ -167,7 +172,7 @@ class Worker():
         Worker.targetMonth = month
 
         # ---------- We delete the pdf file submitted by the user.
-        os.remove(path)
+        # --------------os.remove(path)
 
         for sublist in cleanedDataFromPDF:
             if not doWorkerNeedSchedule(sublist[1]):
@@ -180,41 +185,44 @@ class Worker():
     @ classmethod
     def do_ics(self):
         paths = []
-
         # Iterate with every worker in the list
         for worker in Worker.all:
             full_schedule = Calendar()
-            print("###------------------###")
-            print(worker.name)
-            print(worker.workHourArray)
-
+            Worker.completionMessage = "Sekminga!"
+            tempArray = [worker.name, createMailAddress(worker.name)]
             # when adding to icalendar, yyyy/mm/dd | dd is date_day_counter
             for date_day_counter, working_day in enumerate(worker.workHourArray):
-                # all days when you have to go to work will include a digit. if there are no digits you have a day off
-                if not has_number(working_day):
-                    continue
-                # If you are working, the working hours are written in this format: 10-18, 10-22 and so on
-                work_shift = working_day.split('-')
+                try:
+                    # all days when you have to go to work will include a digit. if there are no digits you have a day off
+                    if not has_number(working_day):
+                        continue
+                    # If you are working, the working hours are written in this format: 10-18, 10-22 and so on
+                    work_shift = working_day.split('-')
 
-                event = Event()
-                event.add('summary', 'Darbas iDeal')
-                event.add('description',
-                          f"Dirba: {Worker.whoWorksThatDay[date_day_counter]}")
+                    event = Event()
+                    event.add('summary', 'Darbas iDeal')
+                    event.add('description',
+                              f"Dirba: {Worker.whoWorksThatDay[date_day_counter]}")
 
-                event.add('dtstart', datetime(int(Worker.targetYear), int(
-                         Worker.targetMonth), date_day_counter+1, int(work_shift[0]), 0, 0, tzinfo=None)
-                )
+                    event.add('dtstart', datetime(int(Worker.targetYear), int(
+                             Worker.targetMonth), date_day_counter+1, int(work_shift[0]), 0, 0, tzinfo=None)
+                    )
 
-                event.add(
-                    'dtend', datetime(int(Worker.targetYear), int(
-                         Worker.targetMonth), date_day_counter+1, int(work_shift[1]), 0, 0, tzinfo=None)
-                )
-                full_schedule.add_component(event)
+                    event.add(
+                        'dtend', datetime(int(Worker.targetYear), int(
+                             Worker.targetMonth), date_day_counter+1, int(work_shift[1]), 0, 0, tzinfo=None)
+                    )
+                    full_schedule.add_component(event)
+
+                except ValueError:
+                    Worker.completionMessage = f"Rasta nesitikėta reikšmė {date_day_counter + 1}d."
+
+            tempArray.append(Worker.completionMessage)
 
             write_ics_to_file(full_schedule, path_to_main_directory(
             ), self.targetYear, self.targetMonth, worker.name)
 
-            paths.append(path_to_ics(path_to_main_directory(),
+            tempArray.append(path_to_ics(path_to_main_directory(),
                          Worker.targetYear, Worker.targetMonth, worker.name))
-        return paths
 
+            Worker.displayInformationArray.append(tempArray)
