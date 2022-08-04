@@ -52,7 +52,7 @@ def after_upload(request):
         msg = EmailMessage(f'Darbo grafikas {Worker.targetYear}-{Worker.targetMonth}', '', 'schedulify@domka.lt', ['domantas.karpinskas@ideal.lt'])
         msg.content_subtype = "html"  
         msg.attach_file(data[index][3])
-        #msg.send()
+        msg.send()
 
     return render(request, 'after_upload.html', {'data': data})
 0

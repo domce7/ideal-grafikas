@@ -173,7 +173,7 @@ class Worker():
         Worker.targetMonth = month
 
         # ---------- We delete the pdf file submitted by the user.
-        # --------------os.remove(path)
+        os.remove(path)
 
         for sublist in cleanedDataFromPDF:
             if not doWorkerNeedSchedule(sublist[1]):

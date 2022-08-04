@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function() {
     elements = document.getElementsByClassName('comp-msg');
     for (var i = 0; i < elements.length; i++) {
         if (elements[i].textContent != "Sėkminga!") {
-            alert(elements[i].textContent)
             elements[i].style.color="red";
         }
     }
