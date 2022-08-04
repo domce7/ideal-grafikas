@@ -4,6 +4,7 @@ from calendar import monthrange
 from pathlib import Path
 import unicodedata
 import os
+from numpy import fix
 import pdfplumber
 
 PAREIGOS_KURIU_KINTANTIS_DARBO_LAIKAS = [
