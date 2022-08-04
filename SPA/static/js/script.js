@@ -1,3 +1,15 @@
+document.addEventListener("DOMContentLoaded", function() {
+    elements = document.getElementsByClassName('comp-msg');
+    for (var i = 0; i < elements.length; i++) {
+        if (elements[i].textContent != "Sėkminga!") {
+            alert(elements[i].textContent)
+            elements[i].style.color="red";
+        }
+    }
+});
+
+
+
 // creating needed vars
 currentYear = new Date().getFullYear();
 currentMonth = new Date().getMonth() + 1;

@@ -6,15 +6,17 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content rounded-4 shadow">
             <div class="modal-body p-5">
-              <h2 class="fw-bold mb-0">Grafikai išsiųsti:</h2>
-      
-              <ul class="d-grid gap-4 my-5 list-unstyled">
-                {% for element in names %}
-                <li class="d-flex gap-4">
-                  <svg class="bi text-muted flex-shrink-0" width="48" height="48"><use xlink:href="#grid-fill"/></svg>
-                  <div>
-                    <h5 class="mb-0">{{ element }}</h5>
-                  </div>
+              <h2 class="fw-bold mb-0 m-0">Grafikai išsiųsti:</h2>
+              <ul class="d-grid gap-4 my-5 list-unstyled mt-4">
+                {% for element in data %}
+                <li class="d-flex gap-4 mb-0">
+                    <div class="card mx-auto" style="width: 18rem;">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ element.0 }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ element.1 }}</h6>
+                        <p class="card-text comp-msg">{{ element.2 }}</p>
+                      </div>
+                    </div>
                 </li>
                 {% endfor %}
               </ul>

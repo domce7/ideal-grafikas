@@ -1,3 +1,4 @@
+import enum
 from pyexpat import model
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
@@ -14,6 +15,10 @@ from .forms import UploadForm
 from .models import Upload
 
 def upload(request):
+
+    Upload.objects.all().delete()
+    Worker.clean_list()
+
     form = Upload()
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
@@ -24,14 +29,7 @@ def upload(request):
             form_data = Upload.objects.latest('id')
             path = os.path.join(os.path.dirname(os.path.dirname(__file__))) + "/media/" + form_data.excel.name
 
-            ics_file_location = Worker.magicWrapper(path, form_data.target_year, form_data.target_month)
-            name_list = Worker.name_list()
-            Worker.clean_list()
-
-            request.session['ics_file_location'] = ics_file_location
-            request.session['name_list'] = name_list
-            request.session['target_year'] = form_data.target_year
-            request.session['target_month'] = form_data.target_month
+            Worker.magicWrapper(path, form_data.target_year, form_data.target_month) 
 
             return redirect('after_upload')
 
@@ -45,19 +43,16 @@ def upload_list(request):
     return render(request, 'upload_list.html', {'upload': upload})
 
 def after_upload(request):
-    ics_file_location = request.session.get('ics_file_location')
-    names = request.session.get('name_list')
-    year = request.session.get('target_year')
-    month = request.session.get('target_month')
 
-    # need to create a function which creates an email addres from the path!!!
-    for file_path in ics_file_location:
+    # ------------ [ [name, email, completionMessage, path], ... ]
+    data = Worker.displayInformationArray
+
+    for index, sublist in enumerate(data):
         # ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------  createMailAddress(file_path)
-        msg = EmailMessage(f'Darbo grafikas {year}-{month}', '', 'schedulify@domka.lt', ['domantas.karpinskas@ideal.lt'])
+        msg = EmailMessage(f'Darbo grafikas {Worker.targetYear}-{Worker.targetMonth}', '', 'schedulify@domka.lt', ['domantas.karpinskas@ideal.lt'])
         msg.content_subtype = "html"  
-        msg.attach_file(file_path)
-        msg.send()
+        msg.attach_file(data[index][3])
+        #msg.send()
 
-    Upload.objects.all().delete()
-
-    return render(request, 'after_upload.html', {'names': names})
+    return render(request, 'after_upload.html', {'data': data})
+0

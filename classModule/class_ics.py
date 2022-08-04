@@ -188,7 +188,7 @@ class Worker():
         # Iterate with every worker in the list
         for worker in Worker.all:
             full_schedule = Calendar()
-            Worker.completionMessage = "Sekminga!"
+            Worker.completionMessage = "Sėkminga!"
             tempArray = [worker.name, createMailAddress(worker.name)]
             # when adding to icalendar, yyyy/mm/dd | dd is date_day_counter
             for date_day_counter, working_day in enumerate(worker.workHourArray):
