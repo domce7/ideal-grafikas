@@ -227,15 +227,15 @@ class Worker():
                     event = Event()
                     event.add('summary', 'Darbas iDeal')
                     event.add('description',
-                              f"Dirba: {Worker.whoWorksThatDay[date_day_counter]}")
+                              f"Buvo rasta bloga reikšmė, tikslus darbo laikas nežinomas")
 
                     event.add('dtstart', datetime(int(Worker.targetYear), int(
-                             Worker.targetMonth), date_day_counter+1, int(10), 0, 0, tzinfo=None)
+                             Worker.targetMonth), date_day_counter+1, 0, 0, 0, tzinfo=None)
                     )
 
                     event.add(
                         'dtend', datetime(int(Worker.targetYear), int(
-                             Worker.targetMonth), date_day_counter+1, int(22), 0, 0, tzinfo=None)
+                             Worker.targetMonth), date_day_counter+1, 0, 0, 0, tzinfo=None)
                     )
                     full_schedule.add_component(event)
             tempArray.append(Worker.completionMessage)
