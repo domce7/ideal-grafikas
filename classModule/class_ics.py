@@ -118,9 +118,7 @@ class Worker():
     completionMessage = ''
     # ------------ [ [name, email, completionMessage, path], ... ]
     displayInformationArray = []
-
-    whoWorksThatDay = []
-    whoWorksThatDay.clear()
+    
     whoWorksThatDay = [''] * 32
 
     targetYear = None
