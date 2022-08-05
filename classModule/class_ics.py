@@ -235,7 +235,7 @@ class Worker():
 
                     event.add(
                         'dtend', datetime(int(Worker.targetYear), int(
-                             Worker.targetMonth), date_day_counter+1, 0, 0, 0, tzinfo=None)
+                             Worker.targetMonth), date_day_counter+1, 23, 0, 0, tzinfo=None)
                     )
                     full_schedule.add_component(event)
             tempArray.append(Worker.completionMessage)
