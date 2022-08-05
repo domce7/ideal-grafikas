@@ -17,11 +17,8 @@ def doWorkerNeedSchedule(jobTitle):
     else:
         False
 
-def removeDuplicate2DArray(x):
-    tempArr = []
-    for sublist in x:
-        tempArr.append(list(dict.fromkeys(sublist)))
-    return(tempArr)
+def removeDuplicate2DArray(array):
+    return array.append(list(dict.fromkeys(array)))
 
 
 def path_to_main_directory():
