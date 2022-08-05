@@ -17,10 +17,6 @@ def doWorkerNeedSchedule(jobTitle):
     else:
         False
 
-def removeDuplicate2DArray(array):
-    return list(dict.fromkeys(array))
-
-
 def path_to_main_directory():
     cwd = os.getcwd()
     return(cwd + "/schedules")
@@ -123,6 +119,8 @@ class Worker():
     # ------------ [ [name, email, completionMessage, path], ... ]
     displayInformationArray = []
 
+    whoWorksThatDay = []
+    whoWorksThatDay.clear()
     whoWorksThatDay = [''] * 32
 
     targetYear = None
@@ -185,7 +183,6 @@ class Worker():
     @ classmethod
     def do_ics(self):
         paths = []
-        #Worker.whoWorksThatDay = removeDuplicate2DArray(Worker.whoWorksThatDay)
         print(Worker.whoWorksThatDay)
         # Iterate with every worker in the list
         for worker in Worker.all:
@@ -237,7 +234,6 @@ class Worker():
                         'dtend', datetime(int(Worker.targetYear), int(
                              Worker.targetMonth), date_day_counter+1, tzinfo=None)
                     )
-                    full_schedule.add_component(event)
 
             tempArray.append(Worker.completionMessage)
 
@@ -248,3 +244,4 @@ class Worker():
                          Worker.targetYear, Worker.targetMonth, worker.name))
 
             Worker.displayInformationArray.append(tempArray)
+        Worker.whoWorksThatDay.clear()
