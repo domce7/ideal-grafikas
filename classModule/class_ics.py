@@ -18,7 +18,7 @@ def doWorkerNeedSchedule(jobTitle):
         False
 
 def removeDuplicate2DArray(array):
-    return array.append(list(dict.fromkeys(array)))
+    return list(dict.fromkeys(array))
 
 
 def path_to_main_directory():
