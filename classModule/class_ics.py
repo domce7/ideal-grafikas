@@ -217,6 +217,25 @@ class Worker():
 
                 except ValueError:
                     Worker.completionMessage = f"Rasta nesitikėta reikšmė {date_day_counter + 1}d."
+                    if not has_number(working_day):
+                        continue
+                    # If you are working, the working hours are written in this format: 10-18, 10-22 and so on
+                    work_shift = working_day.split('-')
+
+                    event = Event()
+                    event.add('summary', 'Darbas iDeal')
+                    event.add('description',
+                              f"Dirba: {Worker.whoWorksThatDay[date_day_counter]}")
+
+                    event.add('dtstart', datetime(int(Worker.targetYear), int(
+                             Worker.targetMonth), date_day_counter+1, tzinfo=None)
+                    )
+
+                    event.add(
+                        'dtend', datetime(int(Worker.targetYear), int(
+                             Worker.targetMonth), date_day_counter+1, tzinfo=None)
+                    )
+                    full_schedule.add_component(event)
 
             tempArray.append(Worker.completionMessage)
 
