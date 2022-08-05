@@ -143,10 +143,6 @@ class Worker():
         Worker.whoWorksThatDay = cleanArrayForWorkersThatDay(
              Worker.whoWorksThatDay)
 
-    @classmethod
-    def name_list(self):
-        return [item.name for item in Worker.all]
-
     @ classmethod
     def clean_list(self):
         Worker.all.clear()
@@ -189,7 +185,8 @@ class Worker():
     @ classmethod
     def do_ics(self):
         paths = []
-        Worker.whoWorksThatDay = removeDuplicate2DArray(Worker.whoWorksThatDay)
+        #Worker.whoWorksThatDay = removeDuplicate2DArray(Worker.whoWorksThatDay)
+        print(Worker.whoWorksThatDay)
         # Iterate with every worker in the list
         for worker in Worker.all:
             full_schedule = Calendar()
