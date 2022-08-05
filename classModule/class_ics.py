@@ -17,6 +17,12 @@ def doWorkerNeedSchedule(jobTitle):
     else:
         False
 
+def removeDuplicate2DArray(x):
+    tempArr = []
+    for sublist in x:
+        tempArr.append(list(dict.fromkeys(sublist)))
+    return(tempArr)
+
 
 def path_to_main_directory():
     cwd = os.getcwd()
@@ -186,6 +192,7 @@ class Worker():
     @ classmethod
     def do_ics(self):
         paths = []
+        Worker.whoWorksThatDay = removeDuplicate2DArray(Worker.whoWorksThatDay)
         # Iterate with every worker in the list
         for worker in Worker.all:
             full_schedule = Calendar()
@@ -217,6 +224,7 @@ class Worker():
 
                 except ValueError:
                     Worker.completionMessage = f"Rasta nesitikėta reikšmė {date_day_counter + 1}d."
+                    
                     if not has_number(working_day):
                         continue
                     # If you are working, the working hours are written in this format: 10-18, 10-22 and so on
