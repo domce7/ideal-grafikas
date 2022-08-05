@@ -195,11 +195,16 @@ class Worker():
                         continue
                     # If you are working, the working hours are written in this format: 10-18, 10-22 and so on
                     work_shift = working_day.split('-')
-
+                    print("############ ----------- ##############")
+                    print(Worker.whoWorksThatDay)
+                    print(date_day_counter)
                     event = Event()
                     event.add('summary', 'Darbas iDeal')
                     event.add('description',
                               f"Dirba: {Worker.whoWorksThatDay[date_day_counter]}")
+                    print("############ ----------- ##############")
+                    print(Worker.whoWorksThatDay)
+                    print(date_day_counter)
 
                     event.add('dtstart', datetime(int(Worker.targetYear), int(
                              Worker.targetMonth), date_day_counter+1, int(work_shift[0]), 0, 0, tzinfo=None)
@@ -242,4 +247,3 @@ class Worker():
                          Worker.targetYear, Worker.targetMonth, worker.name))
 
             Worker.displayInformationArray.append(tempArray)
-        Worker.whoWorksThatDay.clear()
