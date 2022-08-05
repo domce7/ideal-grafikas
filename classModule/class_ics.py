@@ -230,14 +230,14 @@ class Worker():
                               f"Dirba: {Worker.whoWorksThatDay[date_day_counter]}")
 
                     event.add('dtstart', datetime(int(Worker.targetYear), int(
-                             Worker.targetMonth), date_day_counter+1, tzinfo=None)
+                             Worker.targetMonth), date_day_counter+1, int(10), 0, 0, tzinfo=None)
                     )
 
                     event.add(
                         'dtend', datetime(int(Worker.targetYear), int(
-                             Worker.targetMonth), date_day_counter+1, tzinfo=None)
+                             Worker.targetMonth), date_day_counter+1, int(22), 0, 0, tzinfo=None)
                     )
-
+                    full_schedule.add_component(event)
             tempArray.append(Worker.completionMessage)
 
             write_ics_to_file(full_schedule, path_to_main_directory(
